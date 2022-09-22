@@ -32,7 +32,39 @@ const createTask = async (name, status) => {
     status,
   });
 };
-createTask("Learn Vuejs", "DONE");
+createTask("Learn Golang", "PENDING");
+
+//findAll : get all tasks in the table
+const getTaskList = async () => {
+  const list = await Task.findAll();
+  console.log("task list: ", JSON.stringify(list, null, 2));
+};
+//getTaskList();
+
+//findOne: get one task in the table
+const getTaskById = async (id) => {
+  const task = await Task.findOne({
+    where: {
+      id: id,
+    },
+  });
+  console.log("get task by id: ", JSON.stringify(task, null, 2));
+};
+getTaskById(4);
+
+//update 1 task
+const updateTask = async (data, id) => {
+  await Task.update(data, {
+    where: { id },
+  });
+};
+updateTask({ name: "learn front-end ", status: "DONE" }, 1);
+
+//delete a task by Id
+const deleteTaskById = async (id) => {
+  await Task.destroy({ where: { id } });
+};
+deleteTaskById(19);
 
 // sync model with table in mysql / model synchronization
 const syncModel = async () => {
